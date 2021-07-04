@@ -134,5 +134,12 @@ public class SimuladorBanco {
         e.printStackTrace();
       }
     }
+    System.out.println("\nSerializado completo\n");
+  }
+  public void rescatar() throws IOException{
+    Serializador s = new Serializador();
+    clientes.addAll(s.cargarDataBase());
+
+    System.out.println("\nSe han cargado los datos con exito\n");
   }
 }

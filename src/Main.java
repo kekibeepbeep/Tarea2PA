@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 class Main {
@@ -211,6 +212,13 @@ class Main {
           break;
         case 20:
           sb.seriar();
+          break;
+        case 30:
+          try {
+            sb.rescatar();
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
           break;
         default: //"otro valor para terminar"
           seguir = false; break;  
