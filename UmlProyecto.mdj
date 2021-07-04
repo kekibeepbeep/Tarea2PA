@@ -4434,13 +4434,30 @@
 											"height": 13,
 											"text": "+ArrayList{Clientes} cargarDataBase()",
 											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAF6c79MU5hmiio=",
+											"_parent": {
+												"$ref": "AAAAAAF6c0U5iS+Hx7U="
+											},
+											"model": {
+												"$ref": "AAAAAAF6c79MQphUU+4="
+											},
+											"font": "Arial;13;0",
+											"left": 85,
+											"top": 966,
+											"width": 222.1806640625,
+											"height": 13,
+											"text": "+void borrar(String id)",
+											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 80,
 									"top": 931,
 									"width": 232.1806640625,
-									"height": 38
+									"height": 53
 								},
 								{
 									"_type": "UMLReceptionCompartmentView",
@@ -4480,7 +4497,7 @@
 							"left": 80,
 							"top": 896,
 							"width": 232.1806640625,
-							"height": 73,
+							"height": 88,
 							"nameCompartment": {
 								"$ref": "AAAAAAF6c0U5iC+B7FE="
 							},
@@ -6379,6 +6396,25 @@
 								"$ref": "AAAAAAF6c0U5hy9+GkU="
 							},
 							"name": "ArrayList{Clientes} cargarDataBase"
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAF6c79MQphUU+4=",
+							"_parent": {
+								"$ref": "AAAAAAF6c0U5hy9+GkU="
+							},
+							"name": "void borrar",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAF6c7/YEJikfuE=",
+									"_parent": {
+										"$ref": "AAAAAAF6c79MQphUU+4="
+									},
+									"name": "String id",
+									"type": ""
+								}
+							]
 						}
 					]
 				}
