@@ -145,13 +145,8 @@ public class SimuladorBanco {
     System.out.println("\nSe han cargado los datos con exito\n");
   }
 
-
-
-
-
-
 //kekes: FUNCIONES ADICIONLES
-  public void listarClientes() { //borrar, SOLO para debbugueo
+  public void listarClientes() { //lista clientes del banco hecha para fines de testeo.
     for (int i=0;i<clientes.size();i++) {
       System.out.println(clientes.get(i).toString());
     }
@@ -165,6 +160,16 @@ public class SimuladorBanco {
     }
     System.out.println("El cliente solicitado no existe.");
     return false;
+  }
+
+  public int getPosCliente(Cliente cliente){ //retorna posicion de un cliente en el arraylist clientes
+    for (int i=0;i<clientes.size();i++) {
+      if (cliente == clientes.get(i)){
+        return i;
+      } 
+    }
+    System.out.println("El cliente solicitado no existe.");
+    return -1;  //retorna -1 si no lo encuentra
   }
 
 

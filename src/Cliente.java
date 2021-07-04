@@ -10,12 +10,13 @@ public class Cliente implements Serializable{
   protected String nombre;
   protected int numCedula;
   protected ArrayList<Cuenta> cuentas;
-  //protected ArrayList<Cliente> agendaDestinatarios; //ojo al serializar
+  protected ArrayList<Cliente> agendaDestinatarios; //ojo al serializar
 
   public Cliente(String nombre, int cedula) {
     this.nombre = nombre;
     this.numCedula = cedula;
     this.cuentas = new ArrayList<Cuenta>(3);
+    this.agendaDestinatarios = new ArrayList<Cliente>();
     // los clientes suelen tener 1 cta corriente, 1 de ahorro y 1CDT.
     // El tamaño por omisión de un ArrayList es 10
   }
@@ -198,7 +199,41 @@ public class Cliente implements Serializable{
     System.out.println("la cuenta " + id + " no corresponde con el tipo " + clase.getSimpleName() + ", operacion cancelada");
     return false;
   }
+
+  public boolean agregaDestinatario(Cliente agregado){ //agrega un destinatario a la agenda del cliente
+    if(!existeEnAgenda(agregado)){ //si el cliente a agregar no existe en la agenda se agrega ella.
+      agendaDestinatarios.add(agregado);
+      System.out.println("destinatario agregado correctamente.");
+      return true;
+    }
+    return false;
+
+  }
+  public boolean borrarDestinatario(Cliente borrado){
+    if(existeEnAgenda(borrado)){ //si el cliente a agregar no existe en la agenda se agrega ella.
+      agendaDestinatarios.remove(borrado);
+      System.out.println("destinatario borrado correctamente.");
+      return true;
+    }
+    return false;
+  }
+
+  private void listaDestinatarios(){ //lista los destinatarios del cliente, hecha para fines de testeo
+    for (int i=0;i<agendaDestinatarios.size();i++) {
+      System.out.println(agendaDestinatarios.get(i).toString());
+    }
+  }
   
+  private boolean existeEnAgenda(Cliente cliente){ //verifica si un cliente no esta dentro de la agenda de destinatarios
+    if(!agendaDestinatarios.isEmpty()){ //si la agenda no está vacía se recorre para revisar cada elemento
+      for (int i=0;i<agendaDestinatarios.size();i++) { 
+        if (cliente == agendaDestinatarios.get(i)){
+          return true;
+        }
+      }
+    }
+    return false;
+  }
   // clase para fines de testeo
   public static void main (String[] args) {
     System.out.println("cliente:");

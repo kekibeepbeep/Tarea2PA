@@ -18,16 +18,23 @@ class Main {
     SimuladorBanco sb = new SimuladorBanco();
     String nombre; // para guardar el nombre de un cliente
     int cedula;    // para guardar la cedula de un cliente
+    int cedula2;    // para guardar la cedula de un cliente
     int id;        // para guardar el id de una cta
     int monto;     // para guardar el monto del giro o deposito
     int tipo;      // para guardar el tipo de cta segun caso
     Class clase;   // para manejar las clases en RTTI (run-time type identification) 
     Cliente clieAux; // guarda un cliente en especifico
+    Cliente clieAux2; // guarda un cliente en especifico
     double interesAhorro = 0.006; // interes cta ahorro
     double interesCDT; // interes negociable para CDT
     
-
-
+    //borrar esto.
+    System.out.println("kekes pruebas, creando clientes de prueba...:");
+    sb.agregarCliente("pepito", 123);
+    sb.agregarCliente("juenito", 345);
+    sb.agregarCliente("prodiegus xd", 666);
+    sb.listarClientes();
+    ///////
     
     
     while (seguir) {
@@ -220,8 +227,30 @@ class Main {
             sb.clientes.remove(clieAux);
             System.out.println("se eliminó el cliente de cedula "+ clieAux.getId());
           }
-        case 15: //mantener una agenda de destinatarios
-          sb.listarClientes();
+          break;
+        case 15: //agrega un destinarario a la agenda por cedula
+          //pregunta: esto invalida las cuentas anteriormente serializadas?
+          System.out.print("Indica la cedula del dueño de la agenda: ");
+          clieAux= sb.obtenerCliente(in.nextInt()); //dueño de la agenda destino
+          System.out.print("Indica la cedula del destinatario a agregar: ");
+          clieAux2 = sb.obtenerCliente(in.nextInt()); //cliente a agregar a la agenda destino
+
+          if(sb.existeCliente(clieAux) && sb.existeCliente(clieAux2)){ //verifica que ambos cliente existan
+            /*Agrega clieAux2 a agendaDestinatarios de clieAux que se encuentra en array
+            clientes dentro del simulador bancario */
+            sb.clientes.get(sb.getPosCliente(clieAux)).agregaDestinatario(clieAux2);
+          }
+          break;
+        case 16: //borra un destinatario de la agenda por cédula.
+          System.out.print("Indica la cedula del dueño de la agenda: ");
+          clieAux= sb.obtenerCliente(in.nextInt()); //dueño de la agenda destino
+          System.out.print("Indica la cedula del destinatario a agregar: ");
+          clieAux2 = sb.obtenerCliente(in.nextInt()); //cliente a agregar a la agenda destino
+          
+          if(sb.existeCliente(clieAux) && sb.existeCliente(clieAux2)){
+            sb.clientes.get(sb.getPosCliente(clieAux)).borrarDestinatario(clieAux2);
+          }
+
           break;
 
 
@@ -241,8 +270,6 @@ class Main {
       }
     }    
   
-    //PRUEBA FUNCIONES ADICIONALES
-    test2FuncionesAdicionales(sb);
   }
 
 
@@ -324,7 +351,7 @@ public static void testClasesPAI() {
     cli1.listarCuentas();
   }
 
-public static void test2FuncionesAdicionales( SimuladorBanco sb ){ //TEST kekes
+public static void test2FuncionesAdicionales( SimuladorBanco sb ){ //TEST kekes.. si ves esto eliminalo.
   // prueba funciones
   //1. borrar una cliene x cédula.
   System.out.println("kekes pruebas, creando clientes de prueba...:");
