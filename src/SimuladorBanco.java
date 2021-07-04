@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -124,5 +125,21 @@ public class SimuladorBanco {
     }
     else {return false;}
   }
+  public void seriar(){
+    Serializador s = new Serializador();
+    for (Cliente cliente : clientes) {
+      try {
+        s.ingresarABD(cliente);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+    System.out.println("\nSerializado completo\n");
+  }
+  public void rescatar() throws IOException{
+    Serializador s = new Serializador();
+    clientes.addAll(s.cargarDataBase());
 
+    System.out.println("\nSe han cargado los datos con exito\n");
+  }
 }

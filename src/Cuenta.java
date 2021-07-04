@@ -1,4 +1,6 @@
-abstract public class Cuenta implements Operaciones  {
+import java.io.Serializable;
+
+abstract public class Cuenta implements Operaciones, Serializable{
   // atributos de la clase
   static protected int correlativo = 1000;
   // para controlar los id de las cuentas cte, ahorro o CDT

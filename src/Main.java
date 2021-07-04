@@ -1,9 +1,10 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 class Main {
   public static void main(String[] args) {
   
-    //testClasesPAI();
+    //testlasesPAI();
 
     System.out.println("Problema del Simulador Bancario, version con Polimorfismo, clases Abstractas e Interfases");
 
@@ -209,7 +210,16 @@ class Main {
           }
           else { System.out.println("no existe cliente " + cedula + ", cuenta " + id + " o tipo incorrecto."); }
           break;
-
+        case 20:
+          sb.seriar();
+          break;
+        case 30:
+          try {
+            sb.rescatar();
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+          break;
         default: //"otro valor para terminar"
           seguir = false; break;  
       }
