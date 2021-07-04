@@ -25,11 +25,14 @@ class Main {
     Cliente clieAux; // guarda un cliente en especifico
     double interesAhorro = 0.006; // interes cta ahorro
     double interesCDT; // interes negociable para CDT
+    
 
+
+    
+    
     while (seguir) {
       System.out.print("\n? (0 para ayuda) ");
       opcion = in.nextInt();
-
       switch (opcion) {
 
         case 0:
@@ -49,11 +52,10 @@ class Main {
             "11 cerrar un cdt a un cliente por cedula y cta cte destino.\n" +
             "12 depositar en una cuenta segun cedula, monto y idCta.\n" +
             "13 girar en una cuenta segun cedula, monto y idCta.\n" +
-            "14 Borrar un cliente por cedul\n"+
-            "15 Mantene\n"+
-            "16 Agregar destinatario a Agenda\n"+
-            "17 Borrar destinatario de la Agenda\n"+
-            "18 Trasferir entre destinatario\n"
+            "14 Borrar un cliente por cedula\n"+
+            "15 Agregar destinatario a Agenda\n"+
+            "16 Borrar destinatario de la Agenda\n"+
+            "17 Trasferir entre destinatario\n"
           );
           break;
         
@@ -210,6 +212,20 @@ class Main {
           }
           else { System.out.println("no existe cliente " + cedula + ", cuenta " + id + " o tipo incorrecto."); }
           break;
+        case 14: //borrar un cliente por cédula.
+          System.out.print("Indica la cedula: ");
+          cedula = in.nextInt();
+          clieAux = sb.obtenerCliente(cedula);
+          if(sb.existeCliente(clieAux)){
+            sb.clientes.remove(clieAux);
+            System.out.println("se eliminó el cliente de cedula "+ clieAux.getId());
+          }
+        case 15: //mantener una agenda de destinatarios
+          sb.listarClientes();
+          break;
+
+
+        
         case 20:
           sb.seriar();
           break;
@@ -224,9 +240,13 @@ class Main {
           seguir = false; break;  
       }
     }    
+  
+    //PRUEBA FUNCIONES ADICIONALES
+    test2FuncionesAdicionales(sb);
   }
 
-  public static void testClasesPAI() {
+
+public static void testClasesPAI() {
     System.out.println("Cuenta: (abstracta, no se puede instanciar)");
     /*Cuenta cta0 = new Cuenta(0.0);
     System.out.println(cta0);*/
@@ -303,5 +323,26 @@ class Main {
     cli1.simulaMes(); System.out.println(cli1 + "\n");
     cli1.listarCuentas();
   }
+
+public static void test2FuncionesAdicionales( SimuladorBanco sb ){ //TEST kekes
+  // prueba funciones
+  //1. borrar una cliene x cédula.
+  System.out.println("kekes pruebas, creando clientes de prueba...:");
+  sb.agregarCliente("pepito", 123);
+  sb.agregarCliente("juenito", 345);
+  sb.agregarCliente("prodiegus xd", 666);
+  sb.listarClientes();
+//se crearon arriba clientes y se prueba listar clientes
+  //sb.existeCliente(sb.clientes.get(2)); //funciona
   
+
+
+
+
+
 }
+
+
+
+}
+

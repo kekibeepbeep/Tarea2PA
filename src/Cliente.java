@@ -10,6 +10,7 @@ public class Cliente implements Serializable{
   protected String nombre;
   protected int numCedula;
   protected ArrayList<Cuenta> cuentas;
+  //protected ArrayList<Cliente> agendaDestinatarios; //ojo al serializar
 
   public Cliente(String nombre, int cedula) {
     this.nombre = nombre;
