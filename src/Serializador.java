@@ -22,7 +22,7 @@ public class Serializador implements Serializable{
             output.close();
 
         }  
-
+        file.close();
         return cliente;
     }
     //clase para recuperar objetos serializados
@@ -48,18 +48,21 @@ public class Serializador implements Serializable{
 
                 cliente = (Cliente)input.readObject();
                 clientes.add(cliente);
+                input.close();
+                file.close();
             }
-
+            stream.close();
         } catch (Exception e) {
             System.err.println(e);
         }
-        
         return clientes;
     }
 
     //este metodo simplemente borra 1 cliente segun id
     public void borrar(String id) {
         File cliente = new File("DataBase/"+id);
-        cliente.delete();
+        if(!cliente.exists() || !cliente.delete()){
+            System.err.println("Error al borrar de DataBase");
+        }
     }
 }

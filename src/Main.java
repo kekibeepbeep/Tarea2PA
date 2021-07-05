@@ -235,12 +235,14 @@ class Main {
           System.out.print("Indica la cedula: ");
           cedula = in.nextInt();
           clieAux = sb.obtenerCliente(cedula);
-          if(sb.existeCliente(clieAux)){
+          if(sb.existeCliente(clieAux) && clieAux.saldoTotal()==0){
             sb.seriar();
             Serializador s = new Serializador();
-            sb.clientes.remove(clieAux);//esto viola propiedades de encapsulamiento
+            sb.clientes.remove(clieAux);
             s.borrar(Integer.toString(clieAux.getId()));
             System.out.println("se eliminó el cliente de cedula "+ clieAux.getId());
+          }else{
+            System.err.println("El saldo del cliente no es 0 por lo que no se  puede eliminar");
           }
           sb.seriar();
           break;
@@ -273,7 +275,7 @@ class Main {
           //depositos entre agenda celuda plus id cuentas
           System.out.print("Indica la cedula del dueño de la agenda: ");
           clieAux= sb.obtenerCliente(in.nextInt()); //dueño de la agenda destino
-          System.out.print("Indica el id de cuenta corriente destino: ");
+          System.out.print("Indica el id del cliente destino: ");
           id = in.nextInt(); //cliente a agregar a la agenda destino
           if(sb.depositar(clieAux.getId(), id))
             System.out.println("Deposito exitoso");

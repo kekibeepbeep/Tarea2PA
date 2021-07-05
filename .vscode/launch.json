@@ -9,7 +9,7 @@
             "name": "Launch Cliente",
             "request": "launch",
             "mainClass": "Cliente",
-            "projectName": "git1_bancoql"
+            "projectName": "Tarea2PA"
         },
         {
             "type": "java",
@@ -56,7 +56,7 @@
             "name": "Launch App",
             "request": "launch",
             "mainClass": "Main",
-            "projectName": "git1_bancoql"
+            "projectName": "Tarea2PA"
         }
     ]
 }
