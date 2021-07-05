@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -52,7 +53,12 @@ public class Serializador implements Serializable{
         } catch (Exception e) {
             System.err.println(e);
         }
-            
+        
         return clientes;
+    }
+
+    public void borrar(String id) {
+        File cliente = new File("DataBase/"+id);
+        cliente.delete();
     }
 }
