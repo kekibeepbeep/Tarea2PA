@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -37,7 +38,7 @@ public class Serializador implements Serializable{
             //utilizamos este foreach para recorrer la carpeta
             for (Path path : stream) {
                 /*
-                 * el nombre del archivo se puede obtener el objeto Path de java.nio
+                 * el nombre del archivo se puede obtener del objeto Path de java.nio
                  * y al obtener el nombre de este se usa para crear uno nuevo pero 
                  * de tipo FileInputStream de java.io 
                  * 
@@ -45,14 +46,19 @@ public class Serializador implements Serializable{
                 file = new FileInputStream("DataBase/"+path.getFileName().toString());
                 input = new ObjectInputStream(file);
 
-                cliente = (Cliente) input.readObject();
+                cliente = (Cliente)input.readObject();
                 clientes.add(cliente);
             }
 
         } catch (Exception e) {
             System.err.println(e);
         }
-            
+        
         return clientes;
+    }
+
+    public void borrar(String id) {
+        File cliente = new File("DataBase/"+id);
+        cliente.delete();
     }
 }
