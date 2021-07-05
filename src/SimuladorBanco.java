@@ -125,6 +125,7 @@ public class SimuladorBanco {
     }
     else {return false;}
   }
+  
   public void seriar(){
     Serializador s = new Serializador();
     for (Cliente cliente : clientes) {
@@ -136,10 +137,42 @@ public class SimuladorBanco {
     }
     System.out.println("\nSerializado completo\n");
   }
+ 
   public void rescatar() throws IOException{
     Serializador s = new Serializador();
     clientes.addAll(s.cargarDataBase());
 
     System.out.println("\nSe han cargado los datos con exito\n");
   }
+
+//kekes: FUNCIONES ADICIONLES
+  public void listarClientes() { //lista clientes del banco hecha para fines de testeo.
+    for (int i=0;i<clientes.size();i++) {
+      System.out.println(clientes.get(i).toString());
+    }
+  }
+
+  public boolean existeCliente(Cliente cliente){ //verifica si existe un cliente
+    for (int i=0;i<clientes.size();i++) {
+      if (cliente == clientes.get(i)){
+        return true;
+      }   
+    }
+    System.out.println("El cliente solicitado no existe.");
+    return false;
+  }
+
+  public int getPosCliente(Cliente cliente){ //retorna posicion de un cliente en el arraylist clientes
+    for (int i=0;i<clientes.size();i++) {
+      if (cliente == clientes.get(i)){
+        return i;
+      } 
+    }
+    System.out.println("El cliente solicitado no existe.");
+    return -1;  //retorna -1 si no lo encuentra
+  }
+
+
+
 }
+
