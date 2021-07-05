@@ -27,15 +27,12 @@ class Main {
     Cliente clieAux2; // guarda un cliente en especifico
     double interesAhorro = 0.006; // interes cta ahorro
     double interesCDT; // interes negociable para CDT
-    
-    //borrar esto.
-    System.out.println("kekes pruebas, creando clientes de prueba...:");
-    sb.agregarCliente("pepito", 123);
-    sb.agregarCliente("juenito", 345);
-    sb.agregarCliente("prodiegus xd", 666);
-    sb.listarClientes();
-    ///////
-    
+
+    try {
+      sb.rescatar();//automatica mente se carga la base de datos a la memoria
+    } catch (IOException e1) {
+      e1.printStackTrace();
+    }
     
     while (seguir) {
       System.out.print("\n? (0 para ayuda) ");
@@ -62,16 +59,20 @@ class Main {
             "14 Borrar un cliente por cedula\n"+
             "15 Agregar destinatario a Agenda\n"+
             "16 Borrar destinatario de la Agenda\n"+
-            "17 Trasferir entre destinatario\n"
+            "17 Trasferir entre destinatario\n"+
+            "18 Serializar Programa\n"+
+            "19 Rescatar datos serializados\n"
           );
           break;
         
         case 1: // listar clientes
           System.out.print(sb);
+          sb.seriar();
           break;
 
         case 2: // simular el cambio de mes
           sb.simulaMes();
+          sb.seriar();
           break;
 
         case 3: // agregar clientes
@@ -85,6 +86,7 @@ class Main {
           else {
             System.out.println("No se pudo agregar al cliente " + nombre + ".");
           }
+          sb.seriar();
           break;
         
         case 4: // mostrar cliente segun la cedula
@@ -98,6 +100,7 @@ class Main {
             System.out.println("CDT: " + clieAux.listarCuentas(CDT.class));
           }
           else System.out.println("No existe el cliente " + cedula + ".");
+          sb.seriar();
           break;
 
         case 5: // verificar si la cedula pertenece a algun cliente
@@ -107,6 +110,7 @@ class Main {
           if (sb.esCliente(cedula)) {System.out.print("pertenece a un ");}
           else {System.out.print("no pertenece a ningun "); }
           System.out.println("cliente.");
+          sb.seriar();
           break;
 
         case 6: // agregar una ctaCte a un cliente por cedula
@@ -119,6 +123,7 @@ class Main {
             else {System.out.println("No se pudo agregar la cuenta corriente.");}
           }
           else { System.out.println("no existe cliente " + cedula + "."); }
+          sb.seriar();
           break;
 
         case 7: // agregar una ctaAhorro a un cliente por cedula
@@ -131,6 +136,7 @@ class Main {
             else { System.out.println("No se pudo agregar la cuenta de ahorro."); }
           }
           else { System.out.println("no existe cliente " + cedula + "."); }
+          sb.seriar();
           break;
 
         case 8: // agregar un cdt a un cliente por cedula
@@ -147,6 +153,7 @@ class Main {
             else { System.out.println("No se pudo agregar el CDT."); }
           }
           else { System.out.println("no existe cliente " + cedula); }
+          sb.seriar();
           break;
 
         case 9: // borrar una ctacte a un cliente por cedula
@@ -158,6 +165,7 @@ class Main {
             System.out.println("cuenta " + id + " de cliente " + cedula + " borrada");
           }
           else { System.out.println("no existe cliente " + cedula + " o cuenta " + id); }
+          sb.seriar();
           break;
 
         case 10: // borrar una ctaahorro a un cliente por cedula
@@ -169,6 +177,7 @@ class Main {
             System.out.println("cuenta " + id + " de cliente " + cedula + " borrada");
           }
           else { System.out.println("no existe cliente " + cedula + " o cuenta " + id); }
+          sb.seriar();
           break;
 
         case 11: // cerrar un cdt a un cliente por cedula y cta cte destino
@@ -182,6 +191,7 @@ class Main {
             System.out.println("CDT " + id + " de cliente " + cedula + " cerrado y transferido a cta cte " + idCtaCte + ".");
           }
           else { System.out.println("no existe cliente " + cedula + ", CDT " + id + " o cuenta cte " + idCtaCte + "."); }
+          sb.seriar();
           break;
 
         case 12: // depositar en una cuenta segun cedula, monto y idCta
@@ -202,6 +212,7 @@ class Main {
             System.out.println("deposito en cuenta " + id + " tipo " + clase.getSimpleName() + " de cliente " + cedula + " hecho.");
           }
           else { System.out.println("no existe cliente " + cedula + ", cuenta " + id + " o tipo incorrecto."); }
+          sb.seriar();
           break;
         
         case 13: //  girar en una cuenta segun cedula, monto y idCta
@@ -218,6 +229,7 @@ class Main {
             System.out.println("giro en cuenta " + id + " tipo " + clase.getSimpleName() + " de cliente " + cedula + " hecho.");
           }
           else { System.out.println("no existe cliente " + cedula + ", cuenta " + id + " o tipo incorrecto."); }
+          sb.seriar();
           break;
         case 14: //borrar un cliente por cédula.
           System.out.print("Indica la cedula: ");
@@ -226,10 +238,11 @@ class Main {
           if(sb.existeCliente(clieAux)){
             sb.seriar();
             Serializador s = new Serializador();
-            sb.clientes.remove(clieAux);
+            sb.clientes.remove(clieAux);//esto viola propiedades de encapsulamiento
             s.borrar(Integer.toString(clieAux.getId()));
             System.out.println("se eliminó el cliente de cedula "+ clieAux.getId());
           }
+          sb.seriar();
           break;
         case 15: //agrega un destinarario a la agenda por cedula
           //pregunta: esto invalida las cuentas anteriormente serializadas?
@@ -243,6 +256,7 @@ class Main {
             clientes dentro del simulador bancario */
             sb.clientes.get(sb.getPosCliente(clieAux)).agregaDestinatario(clieAux2);
           }
+          sb.seriar();
           break;
         case 16: //borra un destinatario de la agenda por cédula.
           System.out.print("Indica la cedula del dueño de la agenda: ");
@@ -253,24 +267,33 @@ class Main {
           if(sb.existeCliente(clieAux) && sb.existeCliente(clieAux2)){
             sb.clientes.get(sb.getPosCliente(clieAux)).borrarDestinatario(clieAux2);
           }
-
-          break;
-
-
-        
-        case 20:
           sb.seriar();
+          break;
+        case 17:
+          //depositos entre agenda celuda plus id cuentas
+          System.out.print("Indica la cedula del dueño de la agenda: ");
+          clieAux= sb.obtenerCliente(in.nextInt()); //dueño de la agenda destino
+          System.out.print("Indica el id de cuenta corriente destino: ");
+          id = in.nextInt(); //cliente a agregar a la agenda destino
+          if(sb.depositar(clieAux.getId(), id))
+            System.out.println("Deposito exitoso");
+          else
+            System.err.println("Deposito fallido verificar datos ingresados");
+          break;
+        case 18:
+          sb.seriar(); 
           System.out.println("\nSerializado completo\n");
           break;
-        case 30:
+        case 19:
           try {
             sb.rescatar();
+            System.out.println("\nSe han cargado los datos con exito\n");
           } catch (IOException e) {
             e.printStackTrace();
           }
           break;
         default: //"otro valor para terminar"
-          seguir = false; break;  
+          seguir = false; sb.seriar(); break;
       }
     }    
   

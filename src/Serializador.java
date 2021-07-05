@@ -57,6 +57,7 @@ public class Serializador implements Serializable{
         return clientes;
     }
 
+    //este metodo simplemente borra 1 cliente segun id
     public void borrar(String id) {
         File cliente = new File("DataBase/"+id);
         cliente.delete();

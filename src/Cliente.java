@@ -10,7 +10,7 @@ public class Cliente implements Serializable{
   protected String nombre;
   protected int numCedula;
   protected ArrayList<Cuenta> cuentas;
-  protected ArrayList<Cliente> agendaDestinatarios; //ojo al serializar
+  protected ArrayList<Cliente> agendaDestinatarios;
 
   public Cliente(String nombre, int cedula) {
     this.nombre = nombre;
@@ -201,7 +201,7 @@ public class Cliente implements Serializable{
   }
 
   public boolean agregaDestinatario(Cliente agregado){ //agrega un destinatario a la agenda del cliente
-    if(!existeEnAgenda(agregado)){ //si el cliente a agregar no existe en la agenda se agrega ella.
+    if(obtenerClienteAgenda(agregado.getId()) == null){ //si el cliente a agregar no existe en la agenda se agrega ella.
       agendaDestinatarios.add(agregado);
       System.out.println("destinatario agregado correctamente.");
       return true;
@@ -210,7 +210,7 @@ public class Cliente implements Serializable{
 
   }
   public boolean borrarDestinatario(Cliente borrado){
-    if(existeEnAgenda(borrado)){ //si el cliente a agregar no existe en la agenda se agrega ella.
+    if(obtenerClienteAgenda(borrado.getId())!= null){ //si el cliente a agregar no existe en la agenda se agrega ella.
       agendaDestinatarios.remove(borrado);
       System.out.println("destinatario borrado correctamente.");
       return true;
@@ -223,16 +223,15 @@ public class Cliente implements Serializable{
       System.out.println(agendaDestinatarios.get(i).toString());
     }
   }
-  
-  private boolean existeEnAgenda(Cliente cliente){ //verifica si un cliente no esta dentro de la agenda de destinatarios
+  public ArrayList<Cliente> getAgenda(){
+    return agendaDestinatarios;
+  }
+  private Cliente obtenerClienteAgenda(int idDestino){ //verifica si un cliente no esta dentro de la agenda de destinatarios
     if(!agendaDestinatarios.isEmpty()){ //si la agenda no está vacía se recorre para revisar cada elemento
-      for (int i=0;i<agendaDestinatarios.size();i++) { 
-        if (cliente == agendaDestinatarios.get(i)){
-          return true;
-        }
-      }
+      for (Cliente cliente : agendaDestinatarios)
+        if(cliente.getId() == idDestino)return cliente;
     }
-    return false;
+    return null;
   }
   // clase para fines de testeo
   public static void main (String[] args) {

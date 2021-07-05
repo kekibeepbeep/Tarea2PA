@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Scanner;
 
 public class SimuladorBanco {
   ArrayList<Cliente> clientes;
@@ -141,7 +142,7 @@ public class SimuladorBanco {
     Serializador s = new Serializador();
     clientes.addAll(s.cargarDataBase());
 
-    System.out.println("\nSe han cargado los datos con exito\n");
+   
   }
 
 //kekes: FUNCIONES ADICIONLES
@@ -150,7 +151,37 @@ public class SimuladorBanco {
       System.out.println(clientes.get(i).toString());
     }
   }
-
+  public boolean depositar(int idOrigen, int idDestino) {
+    Scanner in = new Scanner(System.in);
+    Cliente cOrigen = obtenerCliente(idOrigen);
+    Cliente cDestino = obtenerCliente(idDestino);
+    if(cOrigen == null)return false;
+    if(cDestino==null)return false;
+    for (Cliente cliente : cOrigen.getAgenda()) {
+        if(cliente.getId() == idDestino){
+          System.out.println("Eliga cuenta del destinatario: \n");
+          for (Cuenta cuenta : cliente.cuentas)System.out.println(cuenta.getId());
+          System.out.print("nmro cta: ");
+          int nmroCtadDestino = in.nextInt();
+          System.out.println("Eliga cuenta origen: \n");
+          for(Cuenta cuenta : obtenerCliente(idOrigen).cuentas)System.out.println(cuenta);
+          System.out.print("nmro cta: ");
+          int nmroCtaOrigen = in.nextInt();
+          for (Cuenta cuentaD : cliente.cuentas) {
+            for(Cuenta cuentaO : obtenerCliente(idOrigen).cuentas){
+              if(cuentaD.getId()==nmroCtadDestino && cuentaO.getId()==nmroCtaOrigen){
+                System.out.print("Cantidad a depositar: ");
+                int dep = in.nextInt();
+                if(!cuentaD.depositar(dep))return false;
+                if(!cuentaO.girar(dep))return false;
+                return true;
+              }
+            }
+          }
+        } 
+    }
+    return false;
+  }
   public boolean existeCliente(Cliente cliente){ //verifica si existe un cliente
     for (int i=0;i<clientes.size();i++) {
       if (cliente == clientes.get(i)){
