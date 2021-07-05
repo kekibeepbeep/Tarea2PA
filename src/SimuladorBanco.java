@@ -135,7 +135,6 @@ public class SimuladorBanco {
         e.printStackTrace();
       }
     }
-    System.out.println("\nSerializado completo\n");
   }
  
   public void rescatar() throws IOException{

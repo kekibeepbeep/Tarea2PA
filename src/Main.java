@@ -224,7 +224,10 @@ class Main {
           cedula = in.nextInt();
           clieAux = sb.obtenerCliente(cedula);
           if(sb.existeCliente(clieAux)){
+            sb.seriar();
+            Serializador s = new Serializador();
             sb.clientes.remove(clieAux);
+            s.borrar(Integer.toString(clieAux.getId()));
             System.out.println("se eliminó el cliente de cedula "+ clieAux.getId());
           }
           break;
@@ -257,6 +260,7 @@ class Main {
         
         case 20:
           sb.seriar();
+          System.out.println("\nSerializado completo\n");
           break;
         case 30:
           try {
