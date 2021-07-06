@@ -263,7 +263,7 @@ class Main {
         case 16: //borra un destinatario de la agenda por cédula.
           System.out.print("Indica la cedula del dueño de la agenda: ");
           clieAux= sb.obtenerCliente(in.nextInt()); //dueño de la agenda destino
-          System.out.print("Indica la cedula del destinatario a agregar: ");
+          System.out.print("Indica la cedula del destinatario a eliminar: ");
           clieAux2 = sb.obtenerCliente(in.nextInt()); //cliente a agregar a la agenda destino
           
           if(sb.existeCliente(clieAux) && sb.existeCliente(clieAux2)){

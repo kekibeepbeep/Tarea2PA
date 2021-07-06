@@ -144,8 +144,6 @@ public class SimuladorBanco {
 
    
   }
-
-//kekes: FUNCIONES ADICIONLES
   public void listarClientes() { //lista clientes del banco hecha para fines de testeo.
     for (int i=0;i<clientes.size();i++) {
       System.out.println(clientes.get(i).toString());
